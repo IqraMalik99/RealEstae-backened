@@ -83,6 +83,7 @@ export let ShowList = AsyncHandler(async (req, res, next) => {
     }
     res.status(200).json(new Responce(200, getList, "Sucessfully get list"));
   } catch (error) {
+    console.error('Error:', err.message);
     throw new ApiError(404, "Error in get list");
   }
 });
@@ -142,6 +143,7 @@ export const FullList = AsyncHandler(async (req, res, next) => {
     console.log(` my list ${list}`);
     res.status(200).json(new Responce(200, list, "Sucessfully get full list"));
   } catch (error) {
+    console.error('Error:', err.message);
     console.log(`error in get listing ${error} `);
   }
 });
@@ -334,6 +336,7 @@ export const getList = AsyncHandler(async (req, res, next) => {
       .status(200)
       .json(new Responce(200, listing, "sucessfully listing"));
   } catch (error) {
+    console.error('Error:', err.message);
     console.log(error, "in list");
   }
 });

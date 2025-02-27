@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use((err,req,res,next)=>{
+    console.error('Error:', err.message); // Log the error
     res.status(500).json({ message: 'Something went wrong!', error: err.message });
     // the error show in maybe message:"someting went wrong ",error : "error send from my error class"
 })
