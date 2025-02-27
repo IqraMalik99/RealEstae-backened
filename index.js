@@ -5,7 +5,7 @@ import { mongoConnection } from "./db/mongoConnection.js";
 
 
 app.get("/",(req,res,next)=>{
-    res.send("Iqra Malik");
+    res.send("Iqra Malikg");
 })
 
 mongoConnection().then(()=>{
