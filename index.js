@@ -7,3 +7,7 @@ mongoConnection().then(()=>{
 }).catch((error)=>{
 console.log(`Cannot make connection in mongodb ${error}`)
 })
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the MERN Backend!');
+  });
