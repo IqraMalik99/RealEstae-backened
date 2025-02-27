@@ -18,7 +18,7 @@ app.use((err,req,res,next)=>{
     res.status(500).json({ message: 'Something went wrong!', error: err.message });
     // the error show in maybe message:"someting went wrong ",error : "error send from my error class"
 })
-
+app.use(express.static('public'));
 
 
 import { userRouter } from './routes/userRoute.js';
