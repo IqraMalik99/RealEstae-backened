@@ -236,11 +236,10 @@ export const deleteAccount=AsyncHandler(async(req,res,next)=>{
 
 export let  automateLogin=AsyncHandler(async(req,res,next)=>{
 try{
-if(req.user.accessToken){
-  res.json(new Responce(200,req.user,"sucessfully login"))
-}
-if(!req.user){
-  res.json(new Responce(200,null,"not login"))
+  if (req.user?.accessToken) {  
+    return res.json(new Responce(200, req.user, "Successfully logged in"));
+} else {  
+    return res.json(new Responce(200, null, "Not logged in"));
 }
 }
 catch(error){

@@ -11,9 +11,10 @@ const corsOptions = {
 
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cookieParser());
+
 app.use((err,req,res,next)=>{
     console.error('Error:', err.message); // Log the error
     res.status(500).json({ message: 'Something went wrong!', error: err.message });
