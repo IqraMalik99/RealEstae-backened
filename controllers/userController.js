@@ -42,7 +42,7 @@ let genToken = async (id) => {
 let options = {
   secure: true,
   httpOnly: true,
-  SameSite: "None",
+  sameSite: "none"
 }
 
 //       AUTENTICATION

@@ -8,10 +8,10 @@ cloudinary.config({
 
 export const cloudinaryUploader = async(file)=>{
     try {
-
-      
+   
    let responce = await   cloudinary.uploader.upload(file,{
     resource_type: "auto",
+    secure: true
    });
 
     fs.unlinkSync(file, (err) => {
