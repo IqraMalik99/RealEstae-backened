@@ -9,7 +9,7 @@ app.get("/",(req,res,next)=>{
 })
 
 mongoConnection().then(()=>{
-    server.listen(4000,()=>{
+    app.listen(4000,()=>{
         console.log(" My server is running on port 4000");
     })
 }).catch((error)=>{
