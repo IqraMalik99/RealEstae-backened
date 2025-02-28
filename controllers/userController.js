@@ -234,16 +234,30 @@ export const deleteAccount=AsyncHandler(async(req,res,next)=>{
   return res.status(200).clearCookie("accessToken").clearCookie("refreshToken").json(new Responce(404,deluser ,"user is deleted"))
 })
 
-export let  automateLogin=AsyncHandler(async(req,res,next)=>{
-try{
-  if (req.user?.accessToken) {  
-    return res.json(new Responce(200, req.user, "Successfully logged in"));
-} else {  
-    return res.json(new Responce(200, null, "Not logged in"));
-}
-}
-catch(error){
-  throw new ApiError(404,"error in automate login")
-}
-}
-)
+export let automateLogin = AsyncHandler(async (req, res, next) => {
+  try {
+    const token = req.cookies.accessToken;
+    if (token) {
+      console.log("it has user");
+      const verification =  jwt.verify(token, "mySecret");
+      if (!verification) {
+        throw new ApiError(400, "Token verification failed");
+      }
+
+      // Find the user based on the token payload
+      const user = await User.findOne({ _id: verification._id }).select(
+        "-password -refreshToken"
+      );
+      if (!user) {
+        throw new ApiError(400, "User not found in the database");
+      }
+      return res.json(new Responce(200, user, "Successfully logged in"));
+    } else {
+      console.log("it has not user");
+      return res.json(new Responce(200, null, "Not logged in"));
+    }
+  } catch (error) {
+    console.log("it has error user");
+    throw new ApiError(404, "error in automate login",error);
+  }
+});

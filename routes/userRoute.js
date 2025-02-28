@@ -11,5 +11,5 @@ userRouter.route('/oauth').post(googleAuth);
 userRouter.route('/updateDp').post(auth,upload.single("avatar"),changeProfilePic);
 userRouter.route('/update').post(auth,updateUserData);
 userRouter.route('/delete').post(auth,deleteAccount);
-userRouter.route('/autoLogin').get(auth,automateLogin)
+userRouter.route('/autoLogin').get(automateLogin)
 export {userRouter}
