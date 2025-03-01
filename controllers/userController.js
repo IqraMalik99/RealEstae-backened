@@ -3,7 +3,7 @@ import { ApiError } from "../utilities/ApiError.js";
 import { AsyncHandler } from "../utilities/AsyncHandler.js";
 import { cloudinaryUploader } from "../utilities/cloudinary.js";
 import { Responce } from "../utilities/Responce.js";
-
+import jwt from "jsonwebtoken";
 //generate random password
 function generatePassword(length) {
   const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
