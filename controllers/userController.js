@@ -122,8 +122,9 @@ export const signOut = AsyncHandler(async (req, res, next) => {
       throw new ApiError(404, "not getting user in logout")
     }
     getUser.refreshToken = "";
+
     await getUser.save({ validateBeforeSave: false });
-    return res.status(200).clearCookie("accessToken").clearCookie("refreshToken").json(new Responce(404, "user is logout"))
+    return res.status(200).clearCookie("accessToken",options).clearCookie("refreshToken",options).json(new Responce(404, "user is logout"))
   } catch (error) {
     throw new ApiError(404, "error in logout")
   }
