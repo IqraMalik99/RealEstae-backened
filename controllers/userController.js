@@ -234,31 +234,39 @@ export const deleteAccount=AsyncHandler(async(req,res,next)=>{
   return res.status(200).clearCookie("accessToken").clearCookie("refreshToken").json(new Responce(404,deluser ,"user is deleted"))
 })
 
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
+import AsyncHandler from "../utilities/AsyncHandler.js";
+import ApiError from "../utilities/ApiError.js";
+import Responce from "../utilities/Responce.js";
+
 export let automateLogin = AsyncHandler(async (req, res, next) => {
   try {
     const token = req.cookies.accessToken;
-    if (token) {
-      console.log("it has user");
-      const verification =  jwt.verify(token, "mySecret");
-      if (!verification) {
-        throw new ApiError(400, "Token verification failed");
-      }
 
-      // Find the user based on the token payload
-      const user = await User.findOne({ _id: verification._id }).select(
-        "-password -refreshToken"
-      );
-      if (!user) {
-        throw new ApiError(400, "User not found in the database");
-      }
-      return res.json(new Responce(200, user, "Successfully logged in"));
-    } else {
-      console.log("it has not user");
+    if (!token) {
+      console.log("No token found");
       return res.json(new Responce(200, null, "Not logged in"));
     }
+
+    let verification;
+    try {
+      verification = jwt.verify(token, "mySecret");
+    } catch (err) {
+      console.error("JWT Verification Error:", err.message);
+      return res.status(401).json(new Responce(401, null, "Invalid or expired token"));
+    }
+
+    // Find the user in the database
+    const user = await User.findById(verification._id).select("-password -refreshToken");
+
+    if (!user) {
+      return res.status(404).json(new Responce(404, null, "User not found"));
+    }
+
+    return res.json(new Responce(200, user, "Successfully logged in"));
   } catch (error) {
-    console.log("it has error user");
-    throw new ApiError(404, "error in automate login",error);
+    console.error("Unexpected Error in automate login:", error);
+    return res.status(500).json(new Responce(500, null, "Server error in automate login"));
   }
 });
-
