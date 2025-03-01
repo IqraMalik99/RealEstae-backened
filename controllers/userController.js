@@ -261,3 +261,4 @@ export let automateLogin = AsyncHandler(async (req, res, next) => {
     throw new ApiError(404, "error in automate login",error);
   }
 });
+
