@@ -234,12 +234,6 @@ export const deleteAccount=AsyncHandler(async(req,res,next)=>{
   return res.status(200).clearCookie("accessToken").clearCookie("refreshToken").json(new Responce(404,deluser ,"user is deleted"))
 })
 
-import jwt from "jsonwebtoken";
-import User from "../models/User.js";
-import AsyncHandler from "../utilities/AsyncHandler.js";
-import ApiError from "../utilities/ApiError.js";
-import Responce from "../utilities/Responce.js";
-
 export let automateLogin = AsyncHandler(async (req, res, next) => {
   try {
     const token = req.cookies.accessToken;
@@ -270,3 +264,4 @@ export let automateLogin = AsyncHandler(async (req, res, next) => {
     return res.status(500).json(new Responce(500, null, "Server error in automate login"));
   }
 });
+
