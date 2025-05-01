@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 dotenv.config()
 export const app = express();
 const corsOptions = {
-    origin: "https://real-estate-frontened-y1i3.vercel.app", // Replace with the actual origin of your frontend
+    origin: "https://real-estate-frontened.vercel.app", // Replace with the actual origin of your frontend
     credentials: true, // Allow credentials (cookies, headers)
 };
 
