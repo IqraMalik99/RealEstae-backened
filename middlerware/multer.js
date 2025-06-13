@@ -1,4 +1,5 @@
 import multer from "multer"
+import fs from "fs";
 
 const folder = './api/public/temp';
 if (!fs.existsSync(folder)) {
